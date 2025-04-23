@@ -42,6 +42,20 @@ class Task(Model):
             
         return instance
     
+    def validate(self):
+        if self.status not in ['pending','done','overdue']:
+            # print(self.status)
+            raise ValueError(f"Status must be one of {self.STATUS_CHOICES}")
+        if self.priority not in ['low','medium','high']:
+            raise ValueError(f"Priority must be one of {self.PRIORITY_CHOICES}")
+ 
+
+
+    # Hook it to save()
+    def save(self, *args, **kwargs):
+        self.validate()
+        super().save(*args, **kwargs)
+    
     class Meta:
         database = db
         indexes = (
