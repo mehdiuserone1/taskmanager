@@ -52,3 +52,6 @@ class Task(Model):
         
 db.connect()
 db.create_tables([Task])
+db.drop_tables([Task])
+db.create_tables([Task])
+db.close()
